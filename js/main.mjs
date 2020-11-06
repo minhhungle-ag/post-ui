@@ -68,7 +68,8 @@ const renderPostList = (postList) => {
           try {
             await postApi.remove(post.id);
 
-            newLiElement.remove();
+            // newLiElement.remove();
+            window.location.reload();
           } catch (error) {
             console.log('Failed to remove student:', error);
           }
