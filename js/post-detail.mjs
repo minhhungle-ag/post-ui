@@ -1,14 +1,10 @@
 import postApi from './api/postApi.js';
-import AppConstants from './appConstants.js';
 import utils from './utils.js';
-import AppConstants from './appConstants.js';
 
 const renderPost = (post) => {
   const imgElement = document.querySelector('#postHeroImage');
   if (imgElement) {
-    imgElement.style.backgroundImage = `url(${
-      post.imageUrl || AppConstants.DEFAULT_HERO_IMAGE_URL
-    })`;
+    imgElement.style.backgroundImage = `url(${post.imageUrl})`;
   }
 
   const titleElement = document.querySelector('#postDetailTitle');
@@ -39,9 +35,11 @@ const main = async () => {
   const post = await postApi.get(postId);
 
   renderPost(post);
+
+  const editLink = document.querySelector('#goToEditPageLink');
+  if (editLink) {
+    editLink.href = `./add-edit-post.html?id=${post.id}`;
+    editLink.innerHTML = '<i class="fas fa-edit"></i> Edit post';
+  }
 };
-
 main();
-
-
-

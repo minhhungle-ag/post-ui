@@ -120,12 +120,17 @@ const handleFormSubmit = async (postId) => {
   const isEditMode = !!postId;
 
   if (isEditMode) {
-    try {
-      const post = await postApi.get(postId);
-      setFormValues(post);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    const post = await postApi.get(postId);
+    setFormValues(post);
+
+    const goToDetailPageLink = document.querySelector('#goToDetailPageLink');
+    goToDetailPageLink.href = `./post-detail.html?id=${post.id}`;
+    goToDetailPageLink.innerHTML = '<i class="fas fa-eye mr-1"></i> View post detail';
+
+    // } catch (error) {
+    //   console.log(error);
+    // }
   } else {
     handleChangeImageClick();
   }

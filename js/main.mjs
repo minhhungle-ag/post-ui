@@ -5,11 +5,9 @@ const renderPostList = (postList) => {
   const ulElement = document.querySelector('#postsList');
 
   postList.forEach((post) => {
-    // Get template
     const templateElement = document.querySelector('#postItemTemplate');
     if (!templateElement) return;
 
-    // Clone li
     const liElementFromTemplate = templateElement.content.querySelector('li');
     const newLiElement = liElementFromTemplate.cloneNode(true);
     // if (newLiElement) {
@@ -19,8 +17,6 @@ const renderPostList = (postList) => {
     //   });
     // }
     console.log(newLiElement);
-
-    // Fill data
 
     const imgElement = newLiElement.querySelector('#postItemImage');
     if (imgElement) {
@@ -54,30 +50,24 @@ const renderPostList = (postList) => {
       timeElement.textContent = `${utils.formatDate(post.updatedAt)}`;
     }
 
-    // Add click event for edit button
     const editElement = newLiElement.querySelector('#postItemEdit');
     if (editElement) {
       editElement.addEventListener('click', (e) => {
-        // Stop bubbling
         e.stopPropagation();
         window.location = `./add-edit-post.html?id=${post.id}`;
       });
     }
 
-    // Add click event for remove button
     const removeElement = newLiElement.querySelector('#postItemRemove');
     if (removeElement) {
       removeElement.addEventListener('click', async (e) => {
-        // Stop bubbling
         e.stopPropagation();
 
-        // Ask user whether they want to delete
         const message = `Are you sure to remove student ${post.title}?`;
         if (window.confirm(message)) {
           try {
             await postApi.remove(post.id);
 
-            // remove li element
             newLiElement.remove();
           } catch (error) {
             console.log('Failed to remove student:', error);
