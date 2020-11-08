@@ -70,3 +70,14 @@ ul {
 #loading p {
   font-size: 72px;
 }
+
+#clock {
+  color: gray;
+  font-size: 1rem;
+  border: 1px solid gray;
+  padding: 8px 16px;
+  border-radius: 50px;
+  position: fixed;
+  top: 27px;
+  left: 15px;
+}

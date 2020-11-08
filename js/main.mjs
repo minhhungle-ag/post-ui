@@ -10,12 +10,7 @@ const renderPostList = (postList) => {
 
     const liElementFromTemplate = templateElement.content.querySelector('li');
     const newLiElement = liElementFromTemplate.cloneNode(true);
-    // if (newLiElement) {
-    //   // ;
-    //   newLiElement.addEventListener('click', (e) => {
-    //     window.location = `./post-detail.html?id=${post.id}`;
-    //   });
-    // }
+
     console.log(newLiElement);
 
     const imgElement = newLiElement.querySelector('#postItemImage');
@@ -63,7 +58,7 @@ const renderPostList = (postList) => {
       removeElement.addEventListener('click', async (e) => {
         e.stopPropagation();
 
-        const message = `Are you sure to remove student ${post.title}?`;
+        const message = `Are you sure to remove "${post.title}"?`;
         if (window.confirm(message)) {
           try {
             await postApi.remove(post.id);
@@ -71,7 +66,7 @@ const renderPostList = (postList) => {
             // newLiElement.remove();
             window.location.reload();
           } catch (error) {
-            console.log('Failed to remove student:', error);
+            console.log('Failed to remove post:', error);
           }
         }
       });
@@ -170,6 +165,6 @@ const renderPostsPagination = (pagination) => {
     loading.style.display = 'none';
     // render
   } catch (error) {
-    console.log('Failed to fetch student list', error);
+    console.log('Failed to fetch post list', error);
   }
 })();

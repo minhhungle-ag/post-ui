@@ -104,10 +104,26 @@ const handleFormSubmit = async (postId) => {
   if (!isValid) return;
   try {
     if (postId) {
+      const savePostButtonElement = document.querySelector('#savePostButton');
+      savePostButtonElement.innerHTML =
+        '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...';
+      savePostButtonElement.disabled = true;
+
       formValues.id = postId;
-      await postApi.update(formValues);
+      const newUpPost = await postApi.update(formValues);
+      alert('Save post successfully');
+      window.location = `./post-detail.html?id=${newUpPost.id}`;
     } else {
-      await postApi.add(formValues);
+      const savePostButtonElement = document.querySelector('#savePostButton');
+      savePostButtonElement.innerHTML =
+        '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...';
+      savePostButtonElement.disabled = true;
+
+      const newPost = await postApi.add(formValues);
+
+      window.location = `./post-detail.html?id=${newPost.id}`;
+
+      alert('Add new post successfully');
     }
   } catch (error) {
     console.log("Can't update data", error);
