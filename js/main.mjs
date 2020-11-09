@@ -160,10 +160,13 @@ const renderPostsPagination = (pagination) => {
 
     renderPostsPagination(response.pagination);
     // ---------------------------------------
-
-    const loading = document.querySelector('#loading');
-    loading.style.display = 'none';
-    // render
+    const loading = document.querySelector('#loader-wrapper');
+    if (loading) {
+      loading.setAttribute('hidden', '');
+    }
+    // const loading = document.querySelector('#loading');
+    // loading.style.display = 'none';
+    // // render
   } catch (error) {
     console.log('Failed to fetch post list', error);
   }
