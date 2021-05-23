@@ -73,6 +73,7 @@ const getFormValues = () => {
   }
   return formvalues;
 };
+
 const validateForm = () => {
   let isValid = true;
 
@@ -97,8 +98,8 @@ const validateForm = () => {
 
 const handleFormSubmit = async (postId) => {
   const formValues = getFormValues();
+  // console.log(formValues);
 
-  console.log(formValues);
   const isValid = validateForm(formValues);
 
   if (!isValid) return;
@@ -115,8 +116,10 @@ const handleFormSubmit = async (postId) => {
       window.location = `./post-detail.html?id=${newUpPost.id}`;
     } else {
       const savePostButtonElement = document.querySelector('#savePostButton');
+
       savePostButtonElement.innerHTML =
         '<span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>Loading...';
+
       savePostButtonElement.disabled = true;
 
       const newPost = await postApi.add(formValues);
@@ -136,17 +139,16 @@ const handleFormSubmit = async (postId) => {
   const isEditMode = !!postId;
 
   if (isEditMode) {
-    // try {
-    const post = await postApi.get(postId);
-    setFormValues(post);
+    try {
+      const post = await postApi.get(postId);
+      setFormValues(post);
 
-    const goToDetailPageLink = document.querySelector('#goToDetailPageLink');
-    goToDetailPageLink.href = `./post-detail.html?id=${post.id}`;
-    goToDetailPageLink.innerHTML = '<i class="fas fa-eye mr-1"></i> View post detail';
-
-    // } catch (error) {
-    //   console.log(error);
-    // }
+      const goToDetailPageLink = document.querySelector('#goToDetailPageLink');
+      goToDetailPageLink.href = `./post-detail.html?id=${post.id}`;
+      goToDetailPageLink.innerHTML = '<i class="fas fa-eye mr-1"></i> View post detail';
+    } catch (error) {
+      console.log(error);
+    }
   } else {
     handleChangeImageClick();
   }
